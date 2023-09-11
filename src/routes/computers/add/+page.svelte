@@ -4,12 +4,11 @@
 	import { superForm, setMessage } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
 	const computerSchema = z.object({
-		id: z.number().int().positive(),
-		name: z.string().min(2)
+		name: z.string().min(1)
 	});
 	export let data: PageData;
 
-	const { form, errors, message, constraints, enhance } = superForm (data.form, {
+	const { form, errors, message, constraints, enhance } = superForm(data.form, {
 		SPA: true,
 		validators: computerSchema,
 		onUpdate({ form }) {
@@ -27,7 +26,6 @@
 {#if $message}<h3>{$message}</h3>{/if}
 
 <form method="POST" use:enhance>
- 
 	<label>
 		computer Name<br />
 		<input
@@ -40,3 +38,12 @@
 
 	<button>add</button>
 </form>
+
+<style>
+	button {
+		@apply bg-blue-500  text-white font-bold py-2 px-4;
+	}
+	label {
+		@apply block text-gray-500 font-bold  mb-1 pr-4;
+	}
+</style>
